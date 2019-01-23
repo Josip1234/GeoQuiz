@@ -38,11 +38,22 @@ public class MainActivity extends AppCompatActivity {
     public Integer numCorrectAnswer = 0;
     public Integer numIncorrectAnswer = 0;
 
+    private static final String TAG = "Aktivnost MainActivity";
+    private static final String KEY_INDEX="index_pitanja_kviza";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate (Bundle) pozvan");
         setContentView(R.layout.activity_main);
+
+        if(savedInstanceState!=null){
+            mCurrentIndex=savedInstanceState.getInt(KEY_INDEX,0);
+        }
+
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
         mCorrect=(TextView) findViewById(R.id.no_of_correct);
@@ -55,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 checkAnswer(true);
-                numCorrectAnswer=numCorrectAnswer+1;
-                mCorrect.setText("Number of correct questions:"+numCorrectAnswer);
+
             }
 
 
@@ -68,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 checkAnswer(false);
-                numIncorrectAnswer=numIncorrectAnswer+1;
-                mIncorrect.setText("Number of incorrect questions:"+numIncorrectAnswer);
+
             }
         });
 
@@ -125,13 +134,22 @@ public class MainActivity extends AppCompatActivity {
         int messageResId = 0;
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
+            numCorrectAnswer=numCorrectAnswer+1;
+            mCorrect.setText("Number of correct questions:"+numCorrectAnswer);
         } else {
             messageResId = R.string.incorrect_toast;
+            numIncorrectAnswer=numIncorrectAnswer+1;
+            mIncorrect.setText("Number of incorrect questions:"+numIncorrectAnswer);
         }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
-    ;
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG,"onSavedInstanceState");
+        savedInstanceState.putInt(KEY_INDEX,mCurrentIndex);
+    }
 
 
 }
