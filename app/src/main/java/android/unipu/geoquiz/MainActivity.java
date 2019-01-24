@@ -1,5 +1,6 @@
 package android.unipu.geoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPreviousButton;
+    private Button mResultButton;
     private TextView mQuestionTextView;
-    private TextView mCorrect;
+
     private TextView mIncorrect;
 
     private Question[] mQuestionBank = new Question[]{
@@ -40,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Aktivnost MainActivity";
     private static final String KEY_INDEX="index_pitanja_kviza";
-
-
+    private static final String EXTRA_KEY="extra_ključ_za_dohvat";
 
 
     @Override
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
-        mCorrect=(TextView) findViewById(R.id.no_of_correct);
+
         mIncorrect=(TextView) findViewById(R.id.no_of_incorrect);
 
         mTrueButton = (Button) findViewById(R.id.true_button);
@@ -89,6 +90,15 @@ public class MainActivity extends AppCompatActivity {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
 
+            }
+        });
+        mResultButton=(Button) findViewById(R.id.result_button);
+        mResultButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,ResultActivity.class);
+                i.putExtra(EXTRA_KEY,numCorrectAnswer);
+                startActivity(i);
             }
         });
 
@@ -135,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
             numCorrectAnswer=numCorrectAnswer+1;
-            mCorrect.setText("Number of correct questions:"+numCorrectAnswer);
+
         } else {
             messageResId = R.string.incorrect_toast;
             numIncorrectAnswer=numIncorrectAnswer+1;

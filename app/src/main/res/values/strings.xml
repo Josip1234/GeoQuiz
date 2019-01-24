@@ -14,5 +14,7 @@
     <string name="previous_button">Prethodno</string>
     <string name="no_correct">Number of correct questions:</string>
     <string name="no_of_incorrect">Number of incorrect questions:</string>
-</resources>
-<!-- Vrijednosti tekstualnih polja koja xml dohvaća preko anotacija -->
+    <string name="trenutni_rezultat">Trenutni rezultat</string>
+    <string name="trenutan_broj_to_no_odgovorenih_pitanja_je">Trenutan broj točno odgovorenih pitanja je:</string>
+    <string name="nazad">Nazad</string>
+</resources><!-- Vrijednosti tekstualnih polja koja xml dohvaća preko anotacija -->
