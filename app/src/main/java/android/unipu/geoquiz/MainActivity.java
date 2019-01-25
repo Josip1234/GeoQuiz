@@ -161,6 +161,13 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt(KEY_INDEX,mCurrentIndex);
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        numCorrectAnswer=getIntent().getIntExtra(EXTRA_KEY,0);
+        Log.i("Correct","Correct answers:"+numCorrectAnswer);
+    }
+
 
 }
 
